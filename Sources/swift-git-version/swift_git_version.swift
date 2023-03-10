@@ -1,6 +1,8 @@
 import GitVersion
 import ShellClient
 
+// An example of using the git version client.
+
 @main
 public struct swift_git_version {
   public static func main() {

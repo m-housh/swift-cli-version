@@ -24,8 +24,8 @@ let package = Package(
       ]
     ),
     .testTarget(
-      name: "swift-git-versionTests",
-      dependencies: ["swift-git-version"]
+      name: "GitVersionTests",
+      dependencies: ["GitVersion"]
     ),
   ]
 )
