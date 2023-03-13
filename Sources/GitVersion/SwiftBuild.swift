@@ -101,6 +101,39 @@ public struct SwiftBuild {
 }
 
 extension ShellClient {
+
+  /// Reads contents at the given file path, then allows the caller to act on the
+  /// results after "nil" has been replaced with the current version string.
+  ///
+  /// > Note: The file contents will be reset back to nil after the closure operation.
+  ///
+  /// - Parameters:
+  ///   - filePath: The file path to replace nil in.
+  ///   - workingDirectory: Customize the working directory for the command.
+  ///   - closure: The closure to run with the updated file content string.
+  public func replacingNilWithVersionString(
+    in filePath: String,
+    from workingDirectory: String? = nil,
+    _ closure: @escaping (String) throws -> Void
+  ) throws {
+    @Dependency(\.fileClient) var fileClient: FileClient
+    @Dependency(\.gitVersionClient) var gitClient: GitVersionClient
+    @Dependency(\.logger) var logger: Logger
+
+    let currentVersion = try gitClient.currentVersion(in: workingDirectory)
+    let originalContents = try fileClient.readAsString(path: filePath)
+
+    logger.debug("Setting version: \(currentVersion)")
+
+    let updatedContents = originalContents
+      .replacingOccurrences(of: "nil", with: "\"\(currentVersion)\"")
+
+    logger.debug("Set version")
+
+    try closure(updatedContents)
+  }
+
+
   /// Replace nil in the given file path and then run the given closure.
   ///
   /// > Note: The file contents will be reset back to nil after the closure operation.
@@ -115,17 +148,21 @@ extension ShellClient {
     _ closure: @escaping () throws -> Void
   ) throws {
     @Dependency(\.fileClient) var fileClient: FileClient
-    @Dependency(\.gitVersionClient) var gitClient: GitVersionClient
+    @Dependency(\.logger) var logger: Logger
 
-    let currentVersion = try gitClient.currentVersion(in: workingDirectory)
+    // grab the original contents, to set it back when done.
     let originalContents = try fileClient.readAsString(path: filePath)
 
-    let updatedContents = originalContents
-      .replacingOccurrences(of: "nil", with: "\"\(currentVersion)\"")
-    try fileClient.write(string: updatedContents, to: filePath)
-    defer { try! fileClient.write(string: originalContents, to: filePath) }
+    try self.replacingNilWithVersionString(
+      in: filePath,
+      from: workingDirectory
+    ) { update in
+      try fileClient.write(string: update, to: filePath)
+      defer { try! fileClient.write(string: originalContents, to: filePath) }
 
-    try closure()
+      try closure()
+    }
+
   }
 
   /// Replace nil in the given file path and then build the project, using the

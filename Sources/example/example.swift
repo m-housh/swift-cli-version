@@ -3,7 +3,6 @@ import ShellClient
 
 /// An example of using the git version client with a command line tool
 /// The ``VERSION`` variable get's set during the build process.
-
 @main
 public struct Example: ParsableCommand {
 

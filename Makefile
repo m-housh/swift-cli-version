@@ -2,10 +2,13 @@ DOCC_TARGET ?= GitVersion
 DOCC_BASEPATH = $(shell basename "$(PWD)")
 DOCC_DIR ?= ./docs
 
+clean:
+	rm -rf .build
+
 build-and-run:
-	swift run build-example
-	./.build/debug/example --help
-	./.build/debug/example
+	swift run -c release build-example
+	./.build/release/example --help
+	./.build/release/example
 
 build-documentation:
 	swift package \
@@ -22,3 +25,12 @@ preview-documentation:
 		--disable-sandbox \
 		preview-documentation \
 		--target "$(DOCC_TARGET)"
+
+test-linux:
+	docker run --rm \
+		--volume "$(PWD):$(PWD)" \
+		--workdir "$(PWD)" \
+		swift:5.7-focal \
+		swift test
+
+

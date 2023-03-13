@@ -164,10 +164,14 @@ extension FileClient {
 
 // MARK: - Private
 fileprivate func url(for path: String) throws -> URL {
-  if #available(macOS 13.0, *) {
-    return URL(filePath: path)
-  } else {
-    // Fallback on earlier versions
+  #if os(Linux)
     return URL(fileURLWithPath: path)
-  }
+  #else
+    if #available(macOS 13.0, *) {
+      return URL(filePath: path)
+    } else {
+      // Fallback on earlier versions
+      return URL(fileURLWithPath: path)
+    }
+  #endif
 }

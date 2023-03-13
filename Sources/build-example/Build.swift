@@ -10,9 +10,20 @@ public struct Build {
   public static func main() throws {
     @Dependency(\.shellClient) var shell: ShellClient
 
-    try shell.replacingNilWithVersionString(
-      in: "Sources/example/Version.swift",
-      build: SwiftBuild.release()
-    )
+    let gitDir = URL(fileURLWithPath: #file)
+      .deletingLastPathComponent()
+      .deletingLastPathComponent()
+      .deletingLastPathComponent()
+
+    try withDependencies {
+      $0.gitVersionClient = .liveValue
+      $0.logger.logLevel = .debug
+    } operation: {
+      try shell.replacingNilWithVersionString(
+        in: "Sources/example/Version.swift",
+        from: gitDir.absoluteString,
+        build: SwiftBuild.release()
+      )
+    }
   }
 }
