@@ -16,7 +16,7 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
       withIntermediateDirectories: true
     )
     
-    let outputFile = outputPath.appending(subpath: "Version.swift")
+    let outputFile = outputPath.appending("Version.swift")
     
     return [
       .buildCommand(
