@@ -5,11 +5,6 @@ DOCC_DIR ?= ./docs
 clean:
 	rm -rf .build
 
-build-and-run:
-	swift run -c release build-example
-	./.build/release/example --help
-	./.build/release/example
-
 build-documentation:
 	swift package \
 		--allow-writing-to-directory "$(DOCC_DIR)" \

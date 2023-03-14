@@ -105,8 +105,6 @@ extension ShellClient {
   /// Reads contents at the given file path, then allows the caller to act on the
   /// results after "nil" has been replaced with the current version string.
   ///
-  /// > Note: The file contents will be reset back to nil after the closure operation.
-  ///
   /// - Parameters:
   ///   - filePath: The file path to replace nil in.
   ///   - workingDirectory: Customize the working directory for the command.

@@ -106,10 +106,20 @@ public struct FileClient {
     try self.write(data, url)
   }
 
+  /// Write's the given string to a file.
+  ///
+  /// - Parameters:
+  ///   - string: The string to write to the file.
+  ///   - url: The file url.
   public func write(string: String, to url: URL) throws {
     try self.write(Data(string.utf8), url)
   }
 
+  /// Write's the the string to a  file path.
+  ///
+  /// - Parameters:
+  ///   - string: The string to write to the file.
+  ///   - path: The file path.
   public func write(string: String, to path: String) throws {
     let url = try url(for: path)
     try self.write(string: string, to: url)
