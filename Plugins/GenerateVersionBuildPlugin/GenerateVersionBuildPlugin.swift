@@ -22,7 +22,7 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
       .buildCommand(
         displayName: "Build With Version",
         executable: tool.path,
-        arguments: ["generate", "\(target.name)"],
+        arguments: ["generate", outputPath.string],
         environment: [:],
         inputFiles: target.sourceFiles.map(\.path),
         outputFiles: [outputFile]
