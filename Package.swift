@@ -9,6 +9,7 @@ let package = Package(
   ],
   products: [
     .library(name: "GitVersion", targets: ["GitVersion"]),
+    .plugin(name: "GenerateVersionBuildPlugin", targets: ["GenerateVersionBuildPlugin"]),
     .plugin(name: "GenerateVersionPlugin", targets: ["GenerateVersionPlugin"]),
     .plugin(name: "UpdateVersionPlugin", targets: ["UpdateVersionPlugin"])
   ],
@@ -34,6 +35,13 @@ let package = Package(
     .testTarget(
       name: "GitVersionTests",
       dependencies: ["GitVersion"]
+    ),
+    .plugin(
+      name: "GenerateVersionBuildPlugin",
+      capability: .buildTool(),
+      dependencies: [
+        "git-version"
+      ]
     ),
     .plugin(
       name: "GenerateVersionPlugin",

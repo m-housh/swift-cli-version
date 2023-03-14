@@ -33,7 +33,7 @@ public struct SwiftBuild {
   /// The configuration for the build command.
   public let configuration: Configuration
 
-  /// Create a ``SwiftBuild`` instance for the ``Configuration/debug`` configuration.
+  /// Create a ``SwiftBuild`` instance for the ``SwiftBuild/Configuration/debug`` configuration.
   ///
   /// - Parameters:
   ///   - arguments: The arguments for the `swift build` command.
@@ -41,7 +41,7 @@ public struct SwiftBuild {
     .init(configuration: .debug, arguments: arguments)
   }
 
-  /// Create a ``SwiftBuild`` instance for the ``Configuration/release`` configuration.
+  /// Create a ``SwiftBuild`` instance for the ``SwiftBuild/Configuration/release`` configuration.
   ///
   /// - Parameters:
   ///   - arguments: The arguments for the `swift build` command.
