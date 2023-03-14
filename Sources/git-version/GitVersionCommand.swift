@@ -14,17 +14,3 @@ struct GitVersionCommand: ParsableCommand {
   )
 }
 
-struct SharedOptions: ParsableArguments {
-
-  @Argument(help: "The target for the version file.")
-  var target: String
-
-  @Option(
-    name: .customLong("filename"),
-    help: "Specify the file name for the version file."
-  )
-  var fileName: String = "Version.swift"
-
-  @Flag(name: .customLong("dry-run"))
-  var dryRun: Bool = false
-}

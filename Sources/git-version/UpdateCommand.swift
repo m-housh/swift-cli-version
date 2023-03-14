@@ -19,43 +19,35 @@ extension GitVersionCommand {
     var gitDirectory: String? = nil
     
     func run() throws {
-      @Dependency(\.logger) var logger: Logger
-      @Dependency(\.fileClient) var fileClient: FileClient
-      @Dependency(\.gitVersionClient) var gitVersion
-      @Dependency(\.shellClient) var shell
+      try withDependencies {
+        $0.logger.logLevel = shared.verbose ? .debug : .info
+        $0.fileClient = .liveValue
+        $0.gitVersionClient = .liveValue
+        $0.shellClient = .liveValue
+      } operation: {
+        @Dependency(\.gitVersionClient) var gitVersion
+        @Dependency(\.fileClient) var fileClient
+        @Dependency(\.logger) var logger
+        @Dependency(\.shellClient) var shell
 
-      let targetUrl = parseTarget(shared.target)
-      let fileUrl = targetUrl.appendingPathComponent(shared.fileName)
-      let fileString = fileUrl.fileString()
+        let targetUrl = parseTarget(shared.target)
+        let fileUrl = targetUrl
+          .appendingPathComponent(shared.fileName)
 
-//      guard FileManager.default.fileExists(atPath: fileUrl.absoluteString) else {
-//        logger.info("Version file does not exist.")
-//        throw UpdateError.versionFileDoesNotExist(path: fileString)
-//      }
+        let fileString = fileUrl.fileString()
 
-      let currentVersion = try gitVersion.currentVersion()
-      let cwd = FileManager.default.currentDirectoryPath
-      logger.info("CWD: \(cwd)")
-      logger.info("Git version: \(currentVersion)")
+        let currentVersion = try gitVersion.currentVersion(in: gitDirectory)
 
-      var updatedContents: String = ""
-      try withDependencies({
-        $0.logger.logLevel = .debug
-      }, operation: {
-        try shell.replacingNilWithVersionString(
-          in: fileString
-//          from: gitDirectory
-        ) {
-          updatedContents = $0
+        let fileContents = template
+          .replacingOccurrences(of: "nil", with: "\"\(currentVersion)\"")
+
+        if !shared.dryRun {
+          try fileClient.write(string: fileContents, to: fileUrl)
+          logger.info("Updated version file: \(fileString)")
+        } else {
+          logger.info("Would update file contents to:")
+          logger.info("\(fileContents)")
         }
-      })
-
-      if !shared.dryRun {
-        try fileClient.write(string: updatedContents, to: fileUrl)
-        logger.info("Updated version file: \(fileString)")
-      } else {
-        logger.info("Would update file contents to:")
-        logger.info("\(updatedContents)")
       }
     }
   }

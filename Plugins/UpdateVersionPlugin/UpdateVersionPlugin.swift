@@ -2,12 +2,12 @@ import PackagePlugin
 import Foundation
 
 @main
-struct GenerateVersionPlugin: CommandPlugin {
+struct UpdateVersionPlugin: CommandPlugin {
 
   func performCommand(context: PluginContext, arguments: [String]) async throws {
     let gitVersion = try context.tool(named: "git-version")
 
-    let arguments = ["generate"] + arguments
+    let arguments = ["update"] + arguments
 
     for target in context.package.targets {
       guard let target = target as? SourceModuleTarget,
@@ -27,4 +27,3 @@ struct GenerateVersionPlugin: CommandPlugin {
     }
   }
 }
-

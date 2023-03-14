@@ -35,6 +35,7 @@ final class GitVersionTests: XCTestCase {
       // can't really have a predictable result for the live client.
       XCTAssertNotEqual(version, "blob")
 
+//      print(FileManager.default.currentDirectoryPath)
 //      let other = try versionClient.currentVersion()
 //      XCTAssertEqual(version, other)
 

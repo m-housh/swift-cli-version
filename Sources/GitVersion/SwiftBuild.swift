@@ -100,90 +100,92 @@ public struct SwiftBuild {
   }
 }
 
-extension ShellClient {
-
-  /// Reads contents at the given file path, then allows the caller to act on the
-  /// results after "nil" has been replaced with the current version string.
-  ///
-  /// - Parameters:
-  ///   - filePath: The file path to replace nil in.
-  ///   - workingDirectory: Customize the working directory for the command.
-  ///   - closure: The closure to run with the updated file content string.
-  public func replacingNilWithVersionString(
-    in filePath: String,
-    from workingDirectory: String? = nil,
-    _ closure: @escaping (String) throws -> Void
-  ) throws {
-    @Dependency(\.fileClient) var fileClient: FileClient
-    @Dependency(\.gitVersionClient) var gitClient: GitVersionClient
-    @Dependency(\.logger) var logger: Logger
-
-    let currentVersion = try gitClient.currentVersion(in: workingDirectory)
-    let originalContents = try fileClient.readAsString(path: filePath)
-
-    logger.debug("Setting version: \(currentVersion)")
-
-    let updatedContents = originalContents
-      .replacingOccurrences(of: "nil", with: "\"\(currentVersion)\"")
-
-    logger.debug("Set version")
-
-    try closure(updatedContents)
-  }
-
-
-  /// Replace nil in the given file path and then run the given closure.
-  ///
-  /// > Note: The file contents will be reset back to nil after the closure operation.
-  ///
-  /// - Parameters:
-  ///   - filePath: The file path to replace nil in.
-  ///   - workingDirectory: Customize the working directory for the command.
-  ///   - build: The swift builder to use.
-  public func replacingNilWithVersionString(
-    in filePath: String,
-    from workingDirectory: String? = nil,
-    _ closure: @escaping () throws -> Void
-  ) throws {
-    @Dependency(\.fileClient) var fileClient: FileClient
-    @Dependency(\.logger) var logger: Logger
-
-    // grab the original contents, to set it back when done.
-    let originalContents = try fileClient.readAsString(path: filePath)
-
-    try self.replacingNilWithVersionString(
-      in: filePath,
-      from: workingDirectory
-    ) { update in
-      try fileClient.write(string: update, to: filePath)
-      defer { try! fileClient.write(string: originalContents, to: filePath) }
-
-      try closure()
-    }
-
-  }
-
-  /// Replace nil in the given file path and then build the project, using the
-  /// given builder.
-  ///
-  /// > Note: The file contents will be reset back to nil after the build operation.
-  ///
-  /// - Parameters:
-  ///   - filePath: The file path to replace nil in.
-  ///   - workingDirectory: Customize the working directory for the command.
-  ///   - build: The swift builder to use.
-  public func replacingNilWithVersionString(
-    in filePath: String,
-    from workingDirectory: String? = nil,
-    build: SwiftBuild
-  ) throws {
-    try replacingNilWithVersionString(
-      in: filePath,
-      from: workingDirectory,
-      build.run
-    )
-  }
-}
+//extension ShellClient {
+//
+//  /// Reads contents at the given file path, then allows the caller to act on the
+//  /// results after "nil" has been replaced with the current version string.
+//  ///
+//  /// - Parameters:
+//  ///   - filePath: The file path to replace nil in.
+//  ///   - workingDirectory: Customize the working directory for the command.
+//  ///   - closure: The closure to run with the updated file content string.
+//  public func replacingNilWithVersionString(
+//    in filePath: String,
+//    from workingDirectory: String? = nil,
+//    _ closure: @escaping (String) throws -> Void
+//  ) throws {
+//    @Dependency(\.fileClient) var fileClient: FileClient
+//    @Dependency(\.gitVersionClient) var gitClient: GitVersionClient
+//    @Dependency(\.logger) var logger: Logger
+//
+//    let currentVersion = try gitClient.currentVersion(in: workingDirectory)
+//    let originalContents = try fileClient.readAsString(path: filePath)
+//
+//    logger.debug("Setting version: \(currentVersion)")
+//
+//    let updatedContents = originalContents
+//      .replacingOccurrences(of: "nil", with: "\"\(currentVersion)\"")
+//
+//    logger.debug("Set version")
+//    logger.debug("Updated contents:")
+//    logger.debug("\(updatedContents)")
+//
+//    try closure(updatedContents)
+//  }
+//
+//
+//  /// Replace nil in the given file path and then run the given closure.
+//  ///
+//  /// > Note: The file contents will be reset back to nil after the closure operation.
+//  ///
+//  /// - Parameters:
+//  ///   - filePath: The file path to replace nil in.
+//  ///   - workingDirectory: Customize the working directory for the command.
+//  ///   - build: The swift builder to use.
+//  public func replacingNilWithVersionString(
+//    in filePath: String,
+//    from workingDirectory: String? = nil,
+//    _ closure: @escaping () throws -> Void
+//  ) throws {
+//    @Dependency(\.fileClient) var fileClient: FileClient
+//    @Dependency(\.logger) var logger: Logger
+//
+//    // grab the original contents, to set it back when done.
+//    let originalContents = try fileClient.readAsString(path: filePath)
+//
+//    try self.replacingNilWithVersionString(
+//      in: filePath,
+//      from: workingDirectory
+//    ) { update in
+//      try fileClient.write(string: update, to: filePath)
+//      defer { try! fileClient.write(string: originalContents, to: filePath) }
+//
+//      try closure()
+//    }
+//
+//  }
+//
+//  /// Replace nil in the given file path and then build the project, using the
+//  /// given builder.
+//  ///
+//  /// > Note: The file contents will be reset back to nil after the build operation.
+//  ///
+//  /// - Parameters:
+//  ///   - filePath: The file path to replace nil in.
+//  ///   - workingDirectory: Customize the working directory for the command.
+//  ///   - build: The swift builder to use.
+//  public func replacingNilWithVersionString(
+//    in filePath: String,
+//    from workingDirectory: String? = nil,
+//    build: SwiftBuild
+//  ) throws {
+//    try replacingNilWithVersionString(
+//      in: filePath,
+//      from: workingDirectory,
+//      build.run
+//    )
+//  }
+//}
 
 fileprivate extension Array where Element == SwiftBuild.Argument {
 

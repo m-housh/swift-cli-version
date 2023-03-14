@@ -116,7 +116,7 @@ fileprivate struct GitVersion {
     .init(
       shell: .env,
       environment: nil,
-      in: workingDirectory,
+      in: workingDirectory ?? FileManager.default.currentDirectoryPath,
       argument.arguments
     )
   }

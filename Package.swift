@@ -9,7 +9,8 @@ let package = Package(
   ],
   products: [
     .library(name: "GitVersion", targets: ["GitVersion"]),
-    .plugin(name: "GenerateVersionPlugin", targets: ["GenerateVersionPlugin"])
+    .plugin(name: "GenerateVersionPlugin", targets: ["GenerateVersionPlugin"]),
+    .plugin(name: "UpdateVersionPlugin", targets: ["UpdateVersionPlugin"])
   ],
   dependencies: [
     .package(url: "https://github.com/m-housh/swift-shell-client.git", from: "0.1.0"),
@@ -43,6 +44,21 @@ let package = Package(
         ),
         permissions: [
           .writeToPackageDirectory(reason: "Generate a version file in the target's directory.")
+        ]
+      ),
+      dependencies: [
+        "git-version"
+      ]
+    ),
+    .plugin(
+      name: "UpdateVersionPlugin",
+      capability: .command(
+        intent: .custom(
+          verb: "update-version",
+          description: "Updates a version file in the given target."
+        ),
+        permissions: [
+          .writeToPackageDirectory(reason: "Update a version file in the target's directory.")
         ]
       ),
       dependencies: [
