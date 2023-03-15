@@ -114,7 +114,7 @@ fileprivate struct GitVersion {
 
   internal func command(for argument: VersionArgs) -> ShellCommand {
     .init(
-      shell: .env,
+      shell: .env(.custom(path: "/usr/bin/git", useDashC: false)),
       environment: nil,
       in: workingDirectory ?? FileManager.default.currentDirectoryPath,
       argument.arguments
