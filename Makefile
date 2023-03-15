@@ -1,3 +1,5 @@
+PLATFORM_MACOS = macOS
+CONFIG := debug
 DOCC_TARGET ?= CliVersion
 DOCC_BASEPATH = $(shell basename "$(PWD)")
 DOCC_DIR ?= ./docs
@@ -27,6 +29,15 @@ test-linux:
 		--workdir "$(PWD)" \
 		swift:5.7-focal \
 		swift test
+
+test-library:
+	for platform in "$(PLATFORM_MACOS)"; do \
+		xcodebuild test \
+			-configuration $(CONFIG) \
+			-workspace .swiftpm/xcode/package.xcworkspace \
+			-scheme swift-cli-version-Package \
+			-destination platform="$$platform" || exit 1; \
+	done;
 
 update-version:
 	swift package \

@@ -1,0 +1,41 @@
+# Build and deploy DocC to GitHub pages. Based off of @karwa's work here:
+# https://github.com/karwa/swift-urlblob/main/.github/workflows/docs.yml
+name: Documentation
+
+on:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+# Sets permissions to allow deployment to Github Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: macos-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build DocC
+        run: make build-documentation
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'docs'
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
