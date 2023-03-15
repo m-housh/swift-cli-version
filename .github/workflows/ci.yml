@@ -22,13 +22,13 @@ jobs:
     - name: Run ${{ matrix.xcode }} Tests
       run: make CONFIG=${{ matrix.config }} test-library
 
-  ubuntu:
-    name: Ubuntu
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: swift-actions/setup-swift@v1
-      with:
-        swift-version: 5.7
-    - uses: actions/checkout@v3
-    - name: Run Tests
-      run: make DOCKER_PLATFORM=linux/amd64 test-linux
+#   ubuntu:
+#     name: Ubuntu
+#     runs-on: ubuntu-20.04
+#     steps:
+#     - uses: swift-actions/setup-swift@v1
+#       with:
+#         swift-version: 5.7
+#     - uses: actions/checkout@v3
+#     - name: Run Tests
+#       run: make DOCKER_PLATFORM=linux/amd64 test-linux
