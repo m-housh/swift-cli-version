@@ -11,7 +11,7 @@ jobs:
     runs-on: macos-12
     strategy:
       matrix:
-        xcode: ['13.3', '14.2']
+        xcode: ['14.2']
         config: ['debug', 'release']
     steps:
     - uses: actions/checkout@v3
