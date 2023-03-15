@@ -11,10 +11,10 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
     let tool = try context.tool(named: "git-version")
     let outputPath = context.pluginWorkDirectory
     
-    try FileManager.default.createDirectory(
-      atPath: outputPath.string,
-      withIntermediateDirectories: true
-    )
+//    try FileManager.default.createDirectory(
+//      atPath: outputPath.string,
+//      withIntermediateDirectories: true
+//    )
     
     let outputFile = outputPath.appending("Version.swift")
     
@@ -22,7 +22,7 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
       .buildCommand(
         displayName: "Build With Version",
         executable: tool.path,
-        arguments: ["generate", outputPath.string],
+        arguments: ["generate", "--verbose", outputPath.string],
         environment: [:],
         inputFiles: target.sourceFiles.map(\.path),
         outputFiles: [outputFile]
