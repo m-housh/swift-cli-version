@@ -31,13 +31,7 @@ test-linux:
 		swift test
 
 test-library:
-	for platform in "$(PLATFORM_MACOS)"; do \
-		xcodebuild test \
-			-configuration $(CONFIG) \
-			-workspace .swiftpm/xcode/package.xcworkspace \
-			-scheme swift-cli-version-Package \
-			-destination platform="$$platform" || exit 1; \
-	done;
+	swift test -c $(CONFIG)
 
 update-version:
 	swift package \
