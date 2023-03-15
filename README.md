@@ -69,6 +69,6 @@ You can view the latest [documentation here](https://m-housh.github.io/swift-cli
 
 This project relys on the following dependencies:
 
-[swift-argument-parser](https://github.com/apple/swift-argument-parser)
-[swift-dependencies](https://github.com/pointfreeco/swift-dependencies)
-[swift-shell-client](https://github.com/m-housh/swift-shell-client)
+- [swift-argument-parser](https://github.com/apple/swift-argument-parser)
+- [swift-dependencies](https://github.com/pointfreeco/swift-dependencies)
+- [swift-shell-client](https://github.com/m-housh/swift-shell-client)
