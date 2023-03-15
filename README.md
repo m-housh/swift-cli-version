@@ -1,4 +1,4 @@
-# swift-git-version
+# swift-cli-version
 
 A swift package that exposes some plugins to set the version of a command line tool to the
 git tag or the git sha, if a tag is not set for the current commit.
