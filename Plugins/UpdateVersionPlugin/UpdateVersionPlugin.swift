@@ -5,7 +5,7 @@ import Foundation
 struct UpdateVersionPlugin: CommandPlugin {
 
   func performCommand(context: PluginContext, arguments: [String]) async throws {
-    let gitVersion = try context.tool(named: "git-version")
+    let gitVersion = try context.tool(named: "cli-version")
 
     let arguments = ["update"] + arguments
 

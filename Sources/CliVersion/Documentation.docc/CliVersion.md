@@ -1,10 +1,10 @@
-# ``GitVersion``
+# ``CliVersion``
 
 Derive a version for a command line tool from git tags or a git sha.
 
 ## Additional Resources
 
-[Github Repo](https://github.com/m-housh/swift-git-version)
+[Github Repo](https://github.com/m-housh/swift-cli-version)
 
 ## Overview
 
@@ -15,8 +15,9 @@ the branch and git sha if a tag is not set for the current worktree state.
 ## Articles
 
 - <doc:GettingStarted>
+- <doc:ManualPlugins>
 
-### Api
+## Api
 
 - ``FileClient``
 - ``GitVersionClient``

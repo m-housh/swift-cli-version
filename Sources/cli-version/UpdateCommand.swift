@@ -1,9 +1,9 @@
 import ArgumentParser
 import Foundation
-import GitVersion
+import CliVersion
 import ShellClient
 
-extension GitVersionCommand {
+extension CliVersionCommand {
 
   struct Update: ParsableCommand {
     static var configuration: CommandConfiguration = .init(

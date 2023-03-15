@@ -86,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/m-housh/swift-shell-client.git",
       "state" : {
-        "revision" : "28bcd2ecd0022aca20c520fc578a130bec7283e7",
-        "version" : "0.1.0"
+        "revision" : "bcd7a06377d43bac71c086d97d82e6c18504277e",
+        "version" : "0.1.3"
       }
     },
     {

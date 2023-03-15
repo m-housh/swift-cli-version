@@ -1,4 +1,4 @@
-DOCC_TARGET ?= GitVersion
+DOCC_TARGET ?= CliVersion
 DOCC_BASEPATH = $(shell basename "$(PWD)")
 DOCC_DIR ?= ./docs
 

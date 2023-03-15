@@ -1,9 +1,9 @@
 import ArgumentParser
 import Foundation
-import GitVersion
+import CliVersion
 import ShellClient
 
-extension GitVersionCommand {
+extension CliVersionCommand {
   struct Build: ParsableCommand {
     static var configuration: CommandConfiguration = .init(
       abstract: "Used for the build with version plugin.",

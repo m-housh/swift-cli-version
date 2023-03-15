@@ -1,10 +1,10 @@
 import ArgumentParser
 import Dependencies
 import Foundation
-import GitVersion
+import CliVersion
 import ShellClient
 
-extension GitVersionCommand {
+extension CliVersionCommand {
 
   struct Generate: ParsableCommand {
     static var configuration: CommandConfiguration = .init(

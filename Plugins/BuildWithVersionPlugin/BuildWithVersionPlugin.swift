@@ -13,7 +13,7 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
       .removingLastComponent()
       .removingLastComponent()
     
-    let tool = try context.tool(named: "git-version")
+    let tool = try context.tool(named: "cli-version")
     let outputPath = context.pluginWorkDirectory
     
     let outputFile = outputPath.appending("Version.swift")

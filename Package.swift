@@ -3,44 +3,44 @@
 import PackageDescription
 
 let package = Package(
-  name: "swift-git-version",
+  name: "swift-cli-version",
   platforms: [
-    .macOS(.v12)
+    .macOS(.v10_15)
   ],
   products: [
-    .library(name: "GitVersion", targets: ["GitVersion"]),
+    .library(name: "CliVersion", targets: ["CliVersion"]),
     .plugin(name: "BuildWithVersionPlugin", targets: ["BuildWithVersionPlugin"]),
     .plugin(name: "GenerateVersionPlugin", targets: ["GenerateVersionPlugin"]),
     .plugin(name: "UpdateVersionPlugin", targets: ["UpdateVersionPlugin"])
   ],
   dependencies: [
-    .package(url: "https://github.com/m-housh/swift-shell-client.git", from: "0.1.0"),
+    .package(url: "https://github.com/m-housh/swift-shell-client.git", from: "0.1.3"),
     .package(url: "https://github.com/apple/swift-docc-plugin.git", from: "1.0.0"),
     .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.2")
   ],
   targets: [
     .executableTarget(
-      name: "git-version",
+      name: "cli-version",
       dependencies: [
-        "GitVersion",
+        "CliVersion",
         .product(name: "ArgumentParser", package: "swift-argument-parser")
       ]
     ),
     .target(
-      name: "GitVersion",
+      name: "CliVersion",
       dependencies: [
         .product(name: "ShellClient", package: "swift-shell-client")
       ]
     ),
     .testTarget(
-      name: "GitVersionTests",
-      dependencies: ["GitVersion"]
+      name: "CliVersionTests",
+      dependencies: ["CliVersion"]
     ),
     .plugin(
       name: "BuildWithVersionPlugin",
       capability: .buildTool(),
       dependencies: [
-        "git-version"
+        "cli-version"
       ]
     ),
     .plugin(
@@ -55,7 +55,7 @@ let package = Package(
         ]
       ),
       dependencies: [
-        "git-version"
+        "cli-version"
       ]
     ),
     .plugin(
@@ -70,7 +70,7 @@ let package = Package(
         ]
       ),
       dependencies: [
-        "git-version"
+        "cli-version"
       ]
     )
   ]

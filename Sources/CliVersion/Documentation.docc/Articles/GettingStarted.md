@@ -1,10 +1,6 @@
-# swift-git-version
+# Getting Started
 
-A swift package that exposes some plugins to set the version of a command line tool to the
-git tag or the git sha, if a tag is not set for the current commit.
-
-[Github Repo](https://github.com/m-housh/swift-cli-version)
-[Documentation](https://m-housh.github.io/swift-cli-version/documentation/cliversion)
+Learn how to integrate the plugins into your project
 
 ## Overview
 
@@ -61,14 +57,13 @@ struct MyCliTool: ParsableCommand {
 After you enable the plugin, you will have access to the `VERSION` string variable even though it is 
 not declared in your source files.
 
-## Documentation
+![Trust & Enable](trust)
 
-You can view the latest [documentation here](https://m-housh.github.io/swift-cli-version/documentation/cliversion).
+> Note: If your `DerivedData` folder lives in a directory that is a mounted volume / or somewhere
+> that is not under your home folder then you may get build failures using the build tool
+> plugin, it will work if you build from the command line and pass the `--disable-sandbox` flag to the
+> build command or use one of the manual methods.
 
-## Dependencies
+## See Also
 
-This project relys on the following dependencies:
-
-[swift-argument-parser](https://github.com/apple/swift-argument-parser)
-[swift-dependencies](https://github.com/pointfreeco/swift-dependencies)
-[swift-shell-client](https://github.com/m-housh/swift-shell-client)
+<doc:ManualPlugins>

@@ -1,5 +1,5 @@
 import XCTest
-import GitVersion
+import CliVersion
 import ShellClient
 
 final class GitVersionTests: XCTestCase {
@@ -22,6 +22,7 @@ final class GitVersionTests: XCTestCase {
       .deletingLastPathComponent()
       .deletingLastPathComponent()
       .absoluteString
+      .replacingOccurrences(of: "file://", with: "")
   }
 
   func test_overrides_work() throws {
@@ -36,8 +37,7 @@ final class GitVersionTests: XCTestCase {
   }
 
   func test_live() throws {
-
-    @Dependency(\.gitVersionClient) var versionClient
+    @Dependency(\.gitVersionClient) var versionClient: GitVersionClient
 
     let version = try versionClient.currentVersion(in: gitDir)
     print("VERSION: \(version)")
