@@ -20,9 +20,15 @@ extension URL {
   }
 }
 
-let template = """
+let optionalTemplate = """
 // Do not set this variable, it is set during the build process.
 let VERSION: String? = nil
+
+"""
+
+let buildTemplate = """
+// Do not set this variable, it is set during the build process.
+let VERSION: String = nil
 
 """
 

@@ -9,7 +9,7 @@ let package = Package(
   ],
   products: [
     .library(name: "GitVersion", targets: ["GitVersion"]),
-    .plugin(name: "GenerateVersionBuildPlugin", targets: ["GenerateVersionBuildPlugin"]),
+    .plugin(name: "BuildWithVersionPlugin", targets: ["BuildWithVersionPlugin"]),
     .plugin(name: "GenerateVersionPlugin", targets: ["GenerateVersionPlugin"]),
     .plugin(name: "UpdateVersionPlugin", targets: ["UpdateVersionPlugin"])
   ],
@@ -37,7 +37,7 @@ let package = Package(
       dependencies: ["GitVersion"]
     ),
     .plugin(
-      name: "GenerateVersionBuildPlugin",
+      name: "BuildWithVersionPlugin",
       capability: .buildTool(),
       dependencies: [
         "git-version"

@@ -38,7 +38,7 @@ extension GitVersionCommand {
 
         let currentVersion = try gitVersion.currentVersion(in: gitDirectory)
 
-        let fileContents = template
+        let fileContents = buildTemplate
           .replacingOccurrences(of: "nil", with: "\"\(currentVersion)\"")
         
         try fileClient.write(string: fileContents, to: fileUrl)

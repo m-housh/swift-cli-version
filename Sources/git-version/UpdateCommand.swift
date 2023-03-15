@@ -39,7 +39,7 @@ extension GitVersionCommand {
 
         let currentVersion = try gitVersion.currentVersion(in: gitDirectory)
 
-        let fileContents = template
+        let fileContents = optionalTemplate
           .replacingOccurrences(of: "nil", with: "\"\(currentVersion)\"")
 
         if !shared.dryRun {

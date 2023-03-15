@@ -9,7 +9,8 @@ extension GitVersionCommand {
   struct Generate: ParsableCommand {
     static var configuration: CommandConfiguration = .init(
       abstract: "Generates a version file in a command line tool that can be set via the git tag or git sha.",
-      discussion: "This command can be interacted with directly, outside of the plugin usage context."
+      discussion: "This command can be interacted with directly, outside of the plugin usage context.",
+      version: VERSION ?? "0.0.0"
     )
 
     @OptionGroup var shared: SharedOptions
@@ -29,7 +30,7 @@ extension GitVersionCommand {
       }
 
       if !shared.dryRun {
-        try fileClient.write(string: template, to: fileUrl)
+        try fileClient.write(string: optionalTemplate, to: fileUrl)
         logger.info("Generated file at: \(fileString)")
       } else {
         logger.info("Would generate file at: \(fileString)")

@@ -10,23 +10,10 @@ import XCTestDynamicOverlay
 /// point to a commit that is tagged, it will use the `branch git-sha` as
 /// the version.
 ///
-/// This is often not used directly, instead it is used with ``SwiftBuild``er
+/// This is often not used directly, instead it is used with one of the plugins
 /// that is supplied with this library.  The use case is to set the version of a command line
 /// tool based on the current git tag.
 ///
-/// ```swift
-/// @main
-/// public struct Build {
-///   public static func main() throws {
-///     @Dependency(\.shellClient) var shell: ShellClient
-///
-///     try shell.replacingNilWithVersionString(
-///       in: "Sources/example/Version.swift",
-///       build: SwiftBuild.release()
-///     )
-///   }
-/// }
-/// ```
 public struct GitVersionClient {
 
   /// The closure to run that returns the current version from a given
@@ -89,6 +76,20 @@ extension DependencyValues {
   public var gitVersionClient: GitVersionClient {
     get { self[GitVersionClient.self] }
     set { self[GitVersionClient.self] = newValue }
+  }
+}
+
+extension ShellCommand {
+  public static func gitCurrentSha(gitDirectory: String? = nil) -> Self {
+    GitVersion(workingDirectory: gitDirectory).command(for: .commit)
+  }
+
+  public static func gitCurrentBranch(gitDirectory: String? = nil) -> Self {
+    GitVersion(workingDirectory: gitDirectory).command(for: .branch)
+  }
+
+  public static func gitCurrentTag(gitDirectory: String? = nil) -> Self {
+    GitVersion(workingDirectory: gitDirectory).command(for: .describe)
   }
 }
 

@@ -28,4 +28,10 @@ test-linux:
 		swift:5.7-focal \
 		swift test
 
+update-version:
+	swift package \
+		--disable-sandbox \
+		--allow-writing-to-package-directory \
+		update-version \
+		git-version
 
