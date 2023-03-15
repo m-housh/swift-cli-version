@@ -33,6 +33,8 @@ extension GitVersionCommand {
         logger.info("Building with git-directory: \(gitDirectory)")
         
         let fileUrl = URL(fileURLWithPath: outputPath)
+          .appendingPathComponent("Version.swift")
+        
         let fileString = fileUrl.fileString()
         logger.info("File Url: \(fileString)")
 
