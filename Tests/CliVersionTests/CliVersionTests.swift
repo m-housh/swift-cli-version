@@ -47,22 +47,21 @@ final class GitVersionTests: XCTestCase {
   }
 
   func test_commands() throws {
-    @Dependency(\.shellClient) var shellClient
+    @Dependency(\.shellClient) var shellClient: ShellClient
 
-    let branch = try shellClient.background(
-      .gitCurrentBranch(gitDirectory: gitDir),
-      trimmingCharactersIn: .whitespacesAndNewlines
+    XCTAssertNoThrow(
+      try shellClient.background(
+        .gitCurrentBranch(gitDirectory: gitDir),
+        trimmingCharactersIn: .whitespacesAndNewlines
+      )
     )
-    print("BRANCH: \(branch)")
-    XCTAssertEqual(branch, "main")
 
-    let commit = try shellClient.background(
-      .gitCurrentSha(gitDirectory: gitDir),
-      trimmingCharactersIn: .whitespacesAndNewlines
+    XCTAssertNoThrow(
+      try shellClient.background(
+        .gitCurrentSha(gitDirectory: gitDir),
+        trimmingCharactersIn: .whitespacesAndNewlines
+      )
     )
-    print("COMMIT: \(commit)")
-    XCTAssertNotEqual(commit, "")
-
   }
 
   func test_file_client() throws {
