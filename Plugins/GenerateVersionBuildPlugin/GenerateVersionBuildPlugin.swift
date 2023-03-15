@@ -9,7 +9,7 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
   ) async throws -> [PackagePlugin.Command] {
     guard let target = target as? SourceModuleTarget else { return [] }
     let tool = try context.tool(named: "git-version")
-    let outputPath = context.pluginWorkDirectory.appending("Version")
+    let outputPath = context.pluginWorkDirectory
     
     try FileManager.default.createDirectory(
       atPath: outputPath.string,
