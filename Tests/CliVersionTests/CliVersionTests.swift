@@ -53,12 +53,14 @@ final class GitVersionTests: XCTestCase {
       .gitCurrentBranch(gitDirectory: gitDir),
       trimmingCharactersIn: .whitespacesAndNewlines
     )
+    print("BRANCH: \(branch)")
     XCTAssertEqual(branch, "main")
 
     let commit = try shellClient.background(
       .gitCurrentSha(gitDirectory: gitDir),
       trimmingCharactersIn: .whitespacesAndNewlines
     )
+    print("COMMIT: \(commit)")
     XCTAssertNotEqual(commit, "")
 
   }
