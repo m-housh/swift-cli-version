@@ -3,8 +3,8 @@
 A swift package that exposes some plugins to set the version of a command line tool to the
 git tag or the git sha, if a tag is not set for the current commit.
 
-[Github Repo](https://github.com/m-housh/swift-cli-version)
-[Documentation](https://m-housh.github.io/swift-cli-version/documentation/cliversion)
+- [Github Repo](https://github.com/m-housh/swift-cli-version)
+- [Documentation](https://m-housh.github.io/swift-cli-version/documentation/cliversion)
 
 ## Overview
 
