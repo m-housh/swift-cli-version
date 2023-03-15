@@ -18,7 +18,7 @@ extension GitVersionCommand {
       name: .customLong("git-directory"),
       help: "The git directory for the version."
     )
-    var gitDirectory: String? = nil
+    var gitDirectory: String
     
     func run() throws {
       try withDependencies {
@@ -28,10 +28,13 @@ extension GitVersionCommand {
       } operation: {
         @Dependency(\.gitVersionClient) var gitVersion
         @Dependency(\.fileClient) var fileClient
-        @Dependency(\.logger) var logger
+        @Dependency(\.logger) var logger: Logger
 
+        logger.info("Building with git-directory: \(gitDirectory)")
+        
         let fileUrl = URL(fileURLWithPath: outputPath)
         let fileString = fileUrl.fileString()
+        logger.info("File Url: \(fileString)")
 
         let currentVersion = try gitVersion.currentVersion(in: gitDirectory)
 
