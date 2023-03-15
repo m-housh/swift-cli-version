@@ -12,7 +12,6 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
     let gitDirectoryPath = target.directory
       .removingLastComponent()
       .removingLastComponent()
-      .removingLastComponent()
     
     let tool = try context.tool(named: "git-version")
     let outputPath = context.pluginWorkDirectory
