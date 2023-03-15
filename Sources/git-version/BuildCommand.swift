@@ -9,10 +9,7 @@ extension GitVersionCommand {
       abstract: "Used for the build with version plugin."
     )
     
-//    @OptionGroup var shared: SharedOptions
-    
-    @Argument(help: "The output file path.")
-    var outputPath: String
+    @OptionGroup var shared: SharedOptions
     
     @Option(
       name: .customLong("git-directory"),
@@ -32,8 +29,8 @@ extension GitVersionCommand {
 
         logger.info("Building with git-directory: \(gitDirectory)")
         
-        let fileUrl = URL(fileURLWithPath: outputPath)
-          .appendingPathComponent("Version.swift")
+        let fileUrl = URL(fileURLWithPath: shared.target)
+          .appendingPathComponent(shared.fileName)
         
         let fileString = fileUrl.fileString()
         logger.info("File Url: \(fileString)")
