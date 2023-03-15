@@ -8,6 +8,12 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
     target: PackagePlugin.Target
   ) async throws -> [PackagePlugin.Command] {
     guard let target = target as? SourceModuleTarget else { return [] }
+    
+    let gitDirectoryPath = target.directory
+      .removingLastComponent()
+      .removingLastComponent()
+      .removingLastComponent()
+    
     let tool = try context.tool(named: "git-version")
     let outputPath = context.pluginWorkDirectory
     
@@ -17,7 +23,7 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
       .buildCommand(
         displayName: "Build With Version",
         executable: tool.path,
-        arguments: ["generate", "--verbose", outputPath.string],
+        arguments: ["build", "--git-directory", gitDirectoryPath.string, outputPath.string],
         environment: [:],
         inputFiles: target.sourceFiles.map(\.path),
         outputFiles: [outputFile]

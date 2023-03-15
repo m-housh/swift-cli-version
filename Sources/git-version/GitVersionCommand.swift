@@ -8,6 +8,7 @@ struct GitVersionCommand: ParsableCommand {
     commandName: "git-version",
     version: VERSION ?? "0.0.0",
     subcommands: [
+      Build.self,
       Generate.self,
       Update.self
     ]
