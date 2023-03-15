@@ -1,6 +1,6 @@
 # swift-cli-version
 [![CI](https://github.com/m-housh/swift-cli-version/actions/workflows/ci.yml/badge.svg)](https://github.com/m-housh/swift-cli-version/actions/workflows/ci.yml)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fm-housh%2Fswift-cli-version%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/m-housh/swift-cli-version)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fm-housh%2Fswift-cli-version%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/m-housh/swift-cli-version)C
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fm-housh%2Fswift-cli-version%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/m-housh/swift-cli-version)
 
 A swift package that exposes some plugins to set the version of a command line tool to the
