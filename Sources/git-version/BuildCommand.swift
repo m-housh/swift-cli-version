@@ -6,7 +6,8 @@ import ShellClient
 extension GitVersionCommand {
   struct Build: ParsableCommand {
     static var configuration: CommandConfiguration = .init(
-      abstract: "Used for the build with version plugin."
+      abstract: "Used for the build with version plugin.",
+      discussion: "This should generally not be interacted with directly, outside of the build plugin."
     )
     
     @OptionGroup var shared: SharedOptions

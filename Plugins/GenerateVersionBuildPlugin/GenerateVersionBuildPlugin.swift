@@ -20,7 +20,7 @@ struct GenerateVersionBuildPlugin: BuildToolPlugin {
     
     return [
       .buildCommand(
-        displayName: "Build With Version",
+        displayName: "Build With Version Plugin",
         executable: tool.path,
         arguments: ["build", "--verbose", "--git-directory", gitDirectoryPath.string, outputPath.string],
         environment: [:],

@@ -8,7 +8,8 @@ extension GitVersionCommand {
 
   struct Generate: ParsableCommand {
     static var configuration: CommandConfiguration = .init(
-      abstract: "Generates a version file in a command line tool that can be set via the git tag or git sha."
+      abstract: "Generates a version file in a command line tool that can be set via the git tag or git sha.",
+      discussion: "This command can be interacted with directly, outside of the plugin usage context."
     )
 
     @OptionGroup var shared: SharedOptions

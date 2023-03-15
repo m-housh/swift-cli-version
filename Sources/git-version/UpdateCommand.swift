@@ -7,7 +7,8 @@ extension GitVersionCommand {
 
   struct Update: ParsableCommand {
     static var configuration: CommandConfiguration = .init(
-      abstract: "Updates a version string to the git tag or git sha."
+      abstract: "Updates a version string to the git tag or git sha.",
+      discussion: "This command can be interacted with directly outside of the plugin context."
     )
 
     @OptionGroup var shared: SharedOptions
