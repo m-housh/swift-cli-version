@@ -8,6 +8,7 @@ import XCTestDynamicOverlay
 /// Represents the interactions with the file system.  It is able
 /// to read from and write to files.
 ///
+///
 /// ```swift
 ///  @Dependency(\.fileClient) var fileClient
 /// ```
